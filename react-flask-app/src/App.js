@@ -4,10 +4,16 @@ import './App.css';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
+  const [userId, setUserId] = useState(0);
+  const [userPw, setUserPw] = useState(0);
 
   useEffect(() =>{
-    fetch('/time').then(res => res.json()).then(data => {
+    fetch('/api/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
+    });
+    fetch('/api/auth/login').then(res => res.json()).then(data => {
+      setUserId(data.uid);
+      setUserPw(data.upw);
     });
   }, []);
 
@@ -27,6 +33,7 @@ function App() {
           Learn React
         </a>
         <p>The current time is {currentTime}.</p>
+        <p>Current uid : {userId} and upw : {userPw}</p>
       </header>
     </div>
   );
